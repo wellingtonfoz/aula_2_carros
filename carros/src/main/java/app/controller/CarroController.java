@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import app.entity.Carro;
 import app.service.CarroService;
-import entity.Carro;
 
 @RestController
 @RequestMapping("/api/carro")
