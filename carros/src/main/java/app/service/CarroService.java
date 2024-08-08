@@ -48,4 +48,14 @@ public class CarroService {
 		return "Veículo deletado com sucesso!";
 	}
 	
+	
+	public List<Carro> findByNome(String nome){
+		return this.carroRepository.findByNomeStartsWith(nome);
+	}
+	
+	public List<Carro> findByAcimaAno(int ano){
+		return this.carroRepository.findByAcimaAno(ano);
+	}
+	
+	
 }

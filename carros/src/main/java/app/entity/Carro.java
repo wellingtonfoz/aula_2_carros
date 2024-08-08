@@ -1,5 +1,7 @@
 package app.entity;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
@@ -7,76 +9,39 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Entity
+@Entity 	//OBRIGATÓRIO - para criar/vincular a classe Java à uma tabela do banco
+@Getter		//para gerar os getters da entidade em tempo de execução
+@Setter		//para gerar os setters da entidade em tempo de execução
+@NoArgsConstructor	//para disponibilizar um construtor sem parâmetros
+@AllArgsConstructor	//para disponibilizar um construtor com todos os parâmetros
 public class Carro {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id //OBRIGATÓRIO - para indicar que é a chave primária da respectiva tabela no BD
+	@GeneratedValue(strategy = GenerationType.IDENTITY) //OBRIGATÓRIO - para indicar que o ID autoincrementa
 	private long id;
 	
 	private String nome;
 	private String modelo;
 	private String placa;
+	private int ano;
 	
-	@ManyToOne(cascade = CascadeType.MERGE)
+	//Coloquem o JSONIGNOREPROPERTIES somente se no outro lado da relação tiver o mapeamento inverso (mappedby)
+	//e o JSONIGNOREPROPERTIES deve sempre ter o nome do objeto que está do outro lado da relação
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JsonIgnoreProperties("carros")
 	private Marca marca;
 	
-	
-	public Carro() {
-		
-	}
-	
-	
-	
-	public Marca getMarca() {
-		return marca;
-	}
-
-
-
-	public void setMarca(Marca marca) {
-		this.marca = marca;
-	}
-
-
-
-	public Carro(long id, String nome, String marca, String modelo) {
-		this.id = id;
-		this.nome = nome;
-		this.modelo = modelo;
-	}
-	
-	
-	public String getPlaca() {
-		return placa;
-	}
-
-	public void setPlaca(String placa) {
-		this.placa = placa;
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-	public String getModelo() {
-		return modelo;
-	}
-	public void setModelo(String modelo) {
-		this.modelo = modelo;
-	}
+	@ManyToMany
+	@JoinTable(name="carro_tem_proprietario") //aqui estamos definindo o nome da TABELA DA RELAÇÃO N PRA N
+	@JsonIgnoreProperties("carros")
+	private List<Proprietario> proprietarios;
 	
 }

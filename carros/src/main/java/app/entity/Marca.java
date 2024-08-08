@@ -2,7 +2,6 @@ package app.entity;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Entity;
@@ -10,48 +9,28 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Entity
+@Entity 	//OBRIGATÓRIO - para criar/vincular a classe Java à uma tabela do banco
+@Getter		//para gerar os getters da entidade em tempo de execução
+@Setter		//para gerar os setters da entidade em tempo de execução
+@NoArgsConstructor	//para disponibilizar um construtor sem parâmetros
+@AllArgsConstructor	//para disponibilizar um construtor com todos os parâmetros
 public class Marca {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+
+	@Id //OBRIGATÓRIO - para indicar que é a chave primária da respectiva tabela no BD
+	@GeneratedValue(strategy = GenerationType.IDENTITY) //OBRIGATÓRIO - para indicar que o ID autoincrementa
 	private long id;
-	
+
 	private String nome;
-	
-	
+
+	//Coloquem o JSONIGNOREPROPERTIES somente se no outro lado da relação tiver o mapeamento inverso (mappedby)
+	//e o JSONIGNOREPROPERTIES deve sempre ter o nome do objeto que está do outro lado da relação
 	@OneToMany(mappedBy="marca")
 	@JsonIgnoreProperties("marca")
-	private List<Carro> carros;
-
-	
-	
-	
-	public List<Carro> getCarros() {
-		return carros;
-	}
-
-	public void setCarros(List<Carro> carros) {
-		this.carros = carros;
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-	
-	
+	private List<Carro> carros;	
 
 }

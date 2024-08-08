@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import app.entity.Carro;
@@ -71,6 +72,28 @@ public class CarroController {
 		try {
 			String mensagem = this.carroService.delete(id);
 			return new ResponseEntity<>(mensagem, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST );
+		}
+	}
+	
+	@GetMapping("/findByNome")
+	public ResponseEntity<List<Carro>> findByNome(@RequestParam String nome){
+		try {
+			List<Carro> lista = this.carroService.findByNome(nome);
+			return new ResponseEntity<>(lista, HttpStatus.OK);
+			
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST );
+		}
+	}
+	
+	@GetMapping("/findByAcimaAno")
+	public ResponseEntity<List<Carro>> findByAcimaAno(@RequestParam int ano){
+		try {
+			List<Carro> lista = this.carroService.findByAcimaAno(ano);
+			return new ResponseEntity<>(lista, HttpStatus.OK);
+			
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST );
 		}
