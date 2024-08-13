@@ -35,13 +35,13 @@ public class Carro {
 	
 	//Coloquem o JSONIGNOREPROPERTIES somente se no outro lado da relação tiver o mapeamento inverso (mappedby)
 	//e o JSONIGNOREPROPERTIES deve sempre ter o nome do objeto que está do outro lado da relação
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JsonIgnoreProperties("carros")
 	private Marca marca;
 	
 	@ManyToMany
 	@JoinTable(name="carro_tem_proprietario") //aqui estamos definindo o nome da TABELA DA RELAÇÃO N PRA N
 	@JsonIgnoreProperties("carros")
-	private List<Proprietario> proprietarios;
+	private List<Proprietario> produtos;
 	
 }

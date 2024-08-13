@@ -26,6 +26,8 @@ public class Proprietario {
 	private long id;
 
 	private String nome;
+	
+	private double preco;
 
 	//Coloquem o JSONIGNOREPROPERTIES somente se no outro lado da relação tiver o mapeamento inverso (mappedby)
 	//e o JSONIGNOREPROPERTIES deve sempre ter o nome do objeto que está do outro lado da relação
